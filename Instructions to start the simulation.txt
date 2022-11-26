@@ -1,0 +1,45 @@
+HoV with fast time scale Load management computer simulations:
+
+Terminal 1 (Load Management Engine) run first:
+python lmDispatch.py --config scenarioConfig.xlsx --loadprofile Load_Profile_2hr_1sec.xlsx --localip 127.0.0.1 --localport 5000 --remoteip 127.0.0.1 --remoteport 4000 --log scenarioLog.csv --logudp udpLog.csv --hovcmdport 5001 --hovlog hovLog.csv --debug
+
+Terminal 2 (HoV Engine):
+python HoV_IP_v2.py --config scenarioConfig.xlsx --loadprediction Load_Profile_2hr_1sec.xlsx --pvpred SolarPrediction_2hr_1sec.xlsx --horizon 300 --localip 127.0.0.1 --localport 7100 --remoteip 127.0.0.1 --remoteport 5001 --lmMeasRelayPort 5000 --debug
+
+Terminal 3 (nlsSim) run after command in terminals 1 and 2 initialize ok:
+python nlsSim.py --config scenarioConfig_NLM_HoV_v2.xlsx --profile scenarioProfile_CsCf_2hr.xlsx --debug
+
+
+Terminal 3 (testPowersys)
+python testPowersys.py --config scenarioConfig.xlsx --scenarioProfileFile scenarioProfile.xlsx --debug
+
+--------------------------------------------------------------------------------------------------------------
+HoV computer simulations:
+
+Terminal 1 (HoV Engine):
+python HoV_IP_v2_opal.py --config scenarioConfig.xlsx --loadprediction Load_Profile_2hr_1sec.xlsx --pvpred SolarPrediction_2hr_1sec.xlsx --horizon 300 --localip 127.0.0.1 --localport 7100 --remoteip 127.0.0.1 --remoteport 4000 --debug
+
+Terminal 2 (testPowersys)
+python testPowersys.py --config scenarioConfig.xlsx --scenarioProfileFile scenarioProfile.xlsx --debug
+
+--------------------------------------------------------------------------------------------------------------
+HoV computer simulations:
+
+Terminal 1 (HoV Engine):
+python HoV_SDP.py --config scenarioConfig.xlsx --loadprediction Load_Profile_2hr_1sec.xlsx --pvpred SolarPrediction_2hr_1sec.xlsx --horizon 300 --localip 127.0.0.1 --localport 7100 --remoteip 127.0.0.1 --remoteport 4000 --debug
+
+Terminal 2 (testPowersys)
+python testPowersys.py --config scenarioConfig.xlsx --scenarioProfileFile scenarioProfile.xlsx --debug
+
+Terminal 3 (Load Management Engine):
+python lmDispatch.py --config scenarioConfig.xlsx --loadprofile Load_Profile_2hr_1sec.xlsx --localip 127.0.0.1 --localport 5000 --remoteip 127.0.0.1 --remoteport 4000 --log scenarioLog.csv --logudp udpLog.csv --hovcmdport 5001 --hovlog hovLog.csv --debug
+
+
+--------------------------------------------------------------------------------------
+HoV with fast time scale Load management OPAL-RT simulations:
+
+Terminal 1 (Load Management Engine) run first:
+python lmDispatch.py --config scenarioConfig.xlsx --loadprofile Load_Profile_2hr_1sec.xlsx --localip 127.0.0.1 --localport 5000 --remoteip 127.0.0.1 --remoteport 4000 --log scenarioLog.csv --logudp udpLog.csv --hovcmdport 5001 --hovlog hovLog.csv --debug
+
+Terminal 2 (HoV Engine):
+python HoV_IP.py --config scenarioConfig.xlsx --loadprediction Load_Profile_2hr_1sec.xlsx --pvpred SolarPrediction_2hr_1sec.xlsx --horizon 300 --localip 127.0.0.1 --localport 7100 --remoteip 127.0.0.1 --remoteport 5001 --lmMeasRelayPort 5000 --debug
